@@ -1,79 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Patient Engagement Platform</title>
-  </head>
-  <body>
+</head>
+<body>
     <div id="loginSection">
-      <h1>Patient Login</h1>
-      <input type="text" placeholder="Username" id="username" required />
-      <input type="password" placeholder="Password" id="password" required />
-      <button id="loginButton">Login</button>
+        <h1>Patient Login</h1>
+        <input type="text" placeholder="Username" id="username" required>
+        <input type="password" placeholder="Password" id="password" required>
+        <button id="loginButton">Login</button>
     </div>
 
-    <div id="optionsSection" style="display: none">
-      <h3>Options</h3>
-      <button id="scheduleAppointmentButton">Schedule Appointment</button>
-      <button id="addReminderButton">Add Medication Reminder</button>
-      <button id="communicationButton">Communication</button>
+    <div id="optionsSection" style="display: none;">
+        <h3>Options</h3>
+        <button id="scheduleAppointmentButton">Schedule Appointment</button>
+        <button id="addReminderButton">Add Medication Reminder</button>
+        <button id="communicationButton">Communication</button>
     </div>
 
-    <div id="doctorListSection" style="display: none">
-      <h3>Select a Doctor</h3>
-      <div id="doctorList"></div>
-      <button id="backToOptionsFromDoctorsButton">Back</button>
+    <div id="doctorListSection" style="display: none;">
+        <h3>Select a Doctor</h3>
+        <div id="doctorList"></div>
+        <button id="backToOptionsFromDoctorsButton">Back</button>
     </div>
 
-    <div id="appointmentFormSection" style="display: none">
-      <h1>Schedule Appointment</h1>
-      <p id="doctorInfo"></p>
-      <input type="text" id="patientName" placeholder="Your Name" required />
-      <input type="text" id="patientId" placeholder="Your ID" required />
-      <input type="datetime-local" id="appointmentDate" required />
-      <button id="scheduleButton">Schedule Appointment</button>
-      <ul id="appointmentList"></ul>
-      <button id="backToOptionsFromAppointmentButton">Back to Options</button>
+    <div id="appointmentFormSection" style="display: none;">
+        <h1>Schedule Appointment</h1>
+        <p id="doctorInfo"></p>
+        <input type="text" id="patientName" placeholder="Your Name" required>
+        <input type="text" id="patientId" placeholder="Your ID" required>
+        <input type="datetime-local" id="appointmentDate" required>
+        <button id="scheduleButton">Schedule Appointment</button>
+        <h2>Scheduled Appointments:</h2>
+        <ul id="appointmentList"></ul>
+        <button id="backToOptionsFromAppointmentButton">Back to Options</button>
     </div>
 
-    <!-- New Medication Reminder Section -->
-    <div id="medicationReminderSection" style="display: none">
-      <h1>Add Medication Reminder</h1>
-      <input
-        type="text"
-        id="medPatientName"
-        placeholder="Patient Name"
-        required
-      />
-      <input type="text" id="medPatientId" placeholder="Patient ID" required />
-      <input
-        type="text"
-        id="medicationName"
-        placeholder="Medication Name"
-        required
-      />
-      <input type="time" id="medicationTime" required />
-      <button id="addReminderSubmitButton">Add Reminder</button>
-      <ul id="medicationReminderList"></ul>
-      <button id="backToOptionsFromReminderButton">Back to Options</button>
+    <div id="medicationReminderSection" style="display: none;">
+        <h1>Add Medication Reminder</h1>
+        <input type="text" id="medPatientName" placeholder="Patient Name" required>
+        <input type="text" id="medPatientId" placeholder="Patient ID" required>
+        <input type="text" id="medicationName" placeholder="Medication Name" required>
+        <input type="time" id="medicationTime" required>
+        <button id="addReminderSubmitButton">Add Reminder</button>
+        <ul id="medicationReminderList"></ul>
+        <button id="backToOptionsFromReminderButton">Back to Options</button>
     </div>
 
-    <!-- New Communication Section -->
-    <div id="communicationSection" style="display: none">
-      <h1>Communication</h1>
-      <div id="messageList"></div>
-      <input
-        type="text"
-        id="messageInput"
-        placeholder="Type your message..."
-        required
-      />
-      <button id="sendMessageButton">Send Message</button>
-      <button id="backToOptionsFromCommunicationButton">Back to Options</button>
+    <div id="communicationSection" style="display: none;">
+        <h1>Communication</h1>
+        <div id="messageList"></div>
+        <input type="text" id="messageInput" placeholder="Type your message..." required>
+        <button id="sendMessageButton">Send Message</button>
+        <button id="backToOptionsFromCommunicationButton">Back to Options</button>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
