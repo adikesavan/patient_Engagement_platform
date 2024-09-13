@@ -38,6 +38,42 @@
       <button id="backToOptionsFromAppointmentButton">Back to Options</button>
     </div>
 
+    <!-- New Medication Reminder Section -->
+    <div id="medicationReminderSection" style="display: none">
+      <h1>Add Medication Reminder</h1>
+      <input
+        type="text"
+        id="medPatientName"
+        placeholder="Patient Name"
+        required
+      />
+      <input type="text" id="medPatientId" placeholder="Patient ID" required />
+      <input
+        type="text"
+        id="medicationName"
+        placeholder="Medication Name"
+        required
+      />
+      <input type="time" id="medicationTime" required />
+      <button id="addReminderSubmitButton">Add Reminder</button>
+      <ul id="medicationReminderList"></ul>
+      <button id="backToOptionsFromReminderButton">Back to Options</button>
+    </div>
+
+    <!-- New Communication Section -->
+    <div id="communicationSection" style="display: none">
+      <h1>Communication</h1>
+      <div id="messageList"></div>
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Type your message..."
+        required
+      />
+      <button id="sendMessageButton">Send Message</button>
+      <button id="backToOptionsFromCommunicationButton">Back to Options</button>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
