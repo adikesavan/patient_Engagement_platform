@@ -22,21 +22,23 @@
     </div>
 
     <div id="doctorListSection" style="display: none;">
-        <h3>Select a Doctor</h3>
-        <div id="doctorList"></div>
-        <button id="backToOptionsFromDoctorsButton">Back</button>
-    </div>
+    <h3>Select a Doctor</h3>
+    <div id="doctorList"></div>
+    <button id="backToOptionsFromDoctorsButton">Back to Options</button> <!-- Back Button -->
+</div>
+
 
     <div id="appointmentFormSection" style="display: none;">
+        
         <h1>Schedule Appointment</h1>
-        <p id="doctorInfo"></p>
+        <h3 id="doctorInfo"></h3>
         <input type="text" id="patientName" placeholder="Your Name" required>
         <input type="text" id="patientId" placeholder="Your ID" required>
         <input type="datetime-local" id="appointmentDate" required>
-        <button id="scheduleButton">Schedule Appointment</button>
-        <h2>Scheduled Appointments:</h2>
+         <button id="scheduleButton">Schedule Appointment</button>
+        <button id="backToDoctorsButton">Back to Doctor Selection</button>
+       
         <ul id="appointmentList"></ul>
-        <button id="backToOptionsFromAppointmentButton">Back to Options</button>
     </div>
 
     <div id="medicationReminderSection" style="display: none;">
