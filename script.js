@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const backToOptionsFromAppointmentButton = document.getElementById('backToOptionsFromAppointmentButton');
     const backToOptionsFromCommunicationButton = document.getElementById('backToOptionsFromCommunicationButton');
     const backToOptionsFromReminderButton = document.getElementById('backToOptionsFromReminderButton');
+    const backToDoctorsButton = document.getElementById('backToDoctorsButton');
 
     // Medication reminder elements
     const medPatientName = document.getElementById('medPatientName');
@@ -61,63 +62,61 @@ document.addEventListener('DOMContentLoaded', function () {
     // Display the list of doctors
     function displayDoctorList() {
         const doctorList = document.getElementById('doctorList');
-        doctorList.innerHTML = ''; // Clear any existing content
-
-        // Sample doctor data (You can replace this with actual data)
+        doctorList.innerHTML = ''; // Clear existing doctors
         const doctors = [
-            { name: "Dr. Smith", specialization: "Cardiology" },
-            { name: "Dr. Johnson", specialization: "Dermatology" },
-            { name: "Dr. Lee", specialization: "Neurology" },
-            { name: "Dr. Taylor", specialization: "Pediatrics" },
-            { name: "Dr. Brown", specialization: "Orthopedics" },
+            { name: 'Dr. Smith', specialty: 'Cardiology' },
+            { name: 'Dr. Johnson', specialty: 'Dermatology' },
+            { name: 'Dr. Williams', specialty: 'Pediatrics' },
+            { name: 'Dr. Brown', specialty: 'Orthopedics' },
+            { name: 'Dr. Garcia', specialty: 'Neurology' }
         ];
 
-        doctors.forEach(doctor => {
+        doctors.forEach(function(doctor) {
             const doctorItem = document.createElement('div');
-            doctorItem.innerHTML = `
-                <h4>${doctor.name} - ${doctor.specialization}</h4>
-                <button class="appointmentButton" data-name="${doctor.name}" data-specialization="${doctor.specialization}">Schedule Appointment</button>
-            `;
-            doctorList.appendChild(doctorItem);
-        });
-
-        // Add event listeners for appointment buttons
-        const appointmentButtons = document.querySelectorAll('.appointmentButton');
-        appointmentButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const doctorName = button.getAttribute('data-name');
-                const doctorSpecialization = button.getAttribute('data-specialization');
-
-                // Navigate to appointment form section
-                doctorListSection.style.display = 'none';
+            doctorItem.innerHTML = `<h4>${doctor.name}</h4><p>Specialty: ${doctor.specialty}</p>`;
+            const appointmentButton = document.createElement('button');
+            appointmentButton.textContent = 'Schedule Appointment';
+            appointmentButton.addEventListener('click', function() {
                 appointmentFormSection.style.display = 'block';
-                document.getElementById('doctorInfo').textContent = `Scheduling with ${doctorName} - ${doctorSpecialization}`;
+                doctorListSection.style.display = 'none';
+                document.getElementById('doctorInfo').textContent = `Scheduling with ${doctor.name}`;
+                loadScheduledAppointments(); // Load already scheduled appointments
             });
+            doctorItem.appendChild(appointmentButton);
+            doctorList.appendChild(doctorItem);
         });
     }
 
-    // Handle scheduling appointments
+    // Load already scheduled appointments
+    function loadScheduledAppointments() {
+        appointmentList.innerHTML = ''; // Clear existing appointments
+        scheduledAppointments.forEach(function(appointment) {
+            const appointmentItem = document.createElement('li');
+            appointmentItem.textContent = `Patient: ${appointment.name} (ID: ${appointment.id}) - Date & Time: ${appointment.date}`;
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancel Appointment';
+            cancelButton.addEventListener('click', function() {
+                scheduledAppointments = scheduledAppointments.filter(a => a !== appointment);
+                loadScheduledAppointments(); // Refresh the list
+            });
+            appointmentItem.appendChild(cancelButton);
+            appointmentList.appendChild(appointmentItem);
+        });
+    }
+
+    // Schedule appointment
     scheduleButton.addEventListener('click', function() {
         const patientName = patientNameInput.value;
         const patientId = patientIdInput.value;
         const appointmentDate = appointmentDateInput.value;
 
         if (patientName && patientId && appointmentDate) {
-            const appointmentItem = document.createElement('li');
-            appointmentItem.textContent = `Patient: ${patientName} (ID: ${patientId}) - Appointment on ${appointmentDate}`;
-            appointmentList.appendChild(appointmentItem);
-
-            // Store appointment details
-            scheduledAppointments.push({
-                name: patientName,
-                id: patientId,
-                date: appointmentDate,
-            });
-
-            // Clear input fields
+            scheduledAppointments.push({ name: patientName, id: patientId, date: appointmentDate });
+            alert('Appointment scheduled successfully!');
             patientNameInput.value = '';
             patientIdInput.value = '';
             appointmentDateInput.value = '';
+            loadScheduledAppointments(); // Refresh the list of scheduled appointments
         } else {
             alert('Please fill in all fields.');
         }
@@ -129,9 +128,9 @@ document.addEventListener('DOMContentLoaded', function () {
         optionsSection.style.display = 'block';
     });
 
-    // Navigate back to options from appointment form
-    backToOptionsFromAppointmentButton.addEventListener('click', function() {
-        appointmentFormSection.style.display = 'none';
+    // Navigate back to options from medication reminder section
+    backToOptionsFromReminderButton.addEventListener('click', function() {
+        medicationReminderSection.style.display = 'none';
         optionsSection.style.display = 'block';
     });
 
@@ -141,30 +140,29 @@ document.addEventListener('DOMContentLoaded', function () {
         optionsSection.style.display = 'block';
     });
 
-    // Navigate back to options from medication reminder section
-    backToOptionsFromReminderButton.addEventListener('click', function() {
-        medicationReminderSection.style.display = 'none';
-        optionsSection.style.display = 'block';
+    // Navigate back to doctor selection from appointment form
+    backToDoctorsButton.addEventListener('click', function() {
+        appointmentFormSection.style.display = 'none';
+        doctorListSection.style.display = 'block'; // Show the doctor selection section
     });
 
-    // Handle adding medication reminder
+    // Handle medication reminder submission
     addReminderButton.addEventListener('click', function() {
         optionsSection.style.display = 'none';
         medicationReminderSection.style.display = 'block';
     });
 
+    // Add medication reminder
     addReminderSubmitButton.addEventListener('click', function() {
+        const medName = medicationName.value;
         const medPatientNameValue = medPatientName.value;
         const medPatientIdValue = medPatientId.value;
-        const medName = medicationName.value;
         const medTime = medicationTime.value;
 
-        if (medPatientNameValue && medPatientIdValue && medName && medTime) {
+        if (medName && medPatientNameValue && medPatientIdValue && medTime) {
             const reminderItem = document.createElement('li');
             reminderItem.textContent = `Patient: ${medPatientNameValue} (ID: ${medPatientIdValue}) - Medication: ${medName} at ${medTime}`;
             medicationReminderList.appendChild(reminderItem);
-
-            // Clear input fields
             medPatientName.value = '';
             medPatientId.value = '';
             medicationName.value = '';
@@ -174,22 +172,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle communication messages
+    // Handle communication
+    communicationButton.addEventListener('click', function() {
+        optionsSection.style.display = 'none';
+        communicationSection.style.display = 'block';
+    });
+
+    // Send message in communication section
     sendMessageButton.addEventListener('click', function() {
         const message = messageInput.value;
         if (message) {
             const messageItem = document.createElement('div');
             messageItem.textContent = message;
             messageList.appendChild(messageItem);
-            messageInput.value = ''; // Clear input field
+            messageInput.value = ''; // Clear the input after sending
         } else {
             alert('Please enter a message.');
         }
-    });
-
-    // Navigate to communication section
-    communicationButton.addEventListener('click', function() {
-        optionsSection.style.display = 'none';
-        communicationSection.style.display = 'block';
     });
 });
